@@ -13,12 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelPatchDto {
+    private Long categoryId;
 
     private String title;
 
     private Region region;
-
-    private String category;
 
     private String travelStartDt;
 

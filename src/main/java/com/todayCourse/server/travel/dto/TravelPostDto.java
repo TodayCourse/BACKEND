@@ -12,13 +12,12 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 public class TravelPostDto {
+    private Long categoryId;
 
     @NotBlank
     private String title;
 
     private Region region;
-
-    private String category;
 
     private String travelStartDt;
 

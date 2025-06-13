@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter @Setter
@@ -21,8 +22,6 @@ public class TravelResponseDto {
     private String title;
 
     private Region region;
-
-    private String category;
 
     private String travelStartDt;
 
@@ -38,7 +37,15 @@ public class TravelResponseDto {
 
     private String regUserId;
 
+    private LocalDateTime regDtt;
+
     private String mdfcUserId;
+
+    private LocalDateTime mdfcDtt;
+
+    private Long categoryId;
+
+    private String categoryName;
 
     private List<CourseResponseDto> courseList;
 }

@@ -41,7 +41,7 @@ public class TravelService {
 
         if (travel.getTitle() != null) findTravel.setTitle(travel.getTitle());
         if (travel.getRegion() != null) findTravel.setRegion(travel.getRegion());
-        if (travel.getCategory() != null) findTravel.setCategory(travel.getCategory());
+        if (travel.getTravelCategory().getCategoryName() != null) findTravel.setTravelCategory(travel.getTravelCategory());
         if (travel.getTravelStartDt() != null) findTravel.setTravelStartDt(travel.getTravelStartDt());
         if (travel.getTravelEndDt() != null) findTravel.setTravelEndDt(travel.getTravelEndDt());
         if (travel.getCostType() != null) findTravel.setCostType(travel.getCostType());

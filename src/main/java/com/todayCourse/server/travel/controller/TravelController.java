@@ -1,6 +1,7 @@
 package com.todayCourse.server.travel.controller;
 
-import com.todayCourse.server.travel.dto.TravelListResponseDto;
+import com.todayCourse.server.category.entity.TravelCategory;
+import com.todayCourse.server.category.service.TravelCategoryService;
 import com.todayCourse.server.travel.dto.TravelPatchDto;
 import com.todayCourse.server.travel.dto.TravelPostDto;
 import com.todayCourse.server.travel.entity.Travel;
@@ -22,12 +23,17 @@ import java.util.List;
 public class TravelController {
     private final TravelService travelService;
     private final TravelMapper travelMapper;
+    private final TravelCategoryService travelCategoryService;
 
     // 여행 정보 등록
     @PostMapping("/create")
     public ResponseEntity postTravel(@RequestBody @Valid TravelPostDto travelPostDto) {
-        Travel travel = travelService.createTravel(travelMapper.postDtoToTravel(travelPostDto));
-        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(travel), HttpStatus.CREATED);
+        Travel travel = travelMapper.postDtoToTravel(travelPostDto);
+        TravelCategory category = travelCategoryService.getCategory(travelPostDto.getCategoryId());
+        travel.setTravelCategory(category);
+
+        Travel savedTravel = travelService.createTravel(travel);
+        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(savedTravel), HttpStatus.CREATED);
     }
 
     // 여행 정보 목록조회
