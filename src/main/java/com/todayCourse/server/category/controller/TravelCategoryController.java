@@ -18,7 +18,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/travelCategory")
+@RequestMapping("/api/travelCategory")
 public class TravelCategoryController {
     private final TravelCategoryService travelCategoryService;
 

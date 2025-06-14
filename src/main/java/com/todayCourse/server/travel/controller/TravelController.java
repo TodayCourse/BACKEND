@@ -19,7 +19,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/travel")
+@RequestMapping("/api/travel")
 public class TravelController {
     private final TravelService travelService;
     private final TravelMapper travelMapper;
@@ -42,6 +42,7 @@ public class TravelController {
         List<Travel> travelList = travelService.getTravelList();
         return new ResponseEntity<>(travelMapper.travelToTravelListResponseDto(travelList), HttpStatus.OK);
     }
+
     // 여행 정보 상세조회
     @GetMapping("/{travelId}")
     public ResponseEntity getTravel(@PathVariable Long travelId) {
