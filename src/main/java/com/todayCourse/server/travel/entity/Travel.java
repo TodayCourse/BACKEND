@@ -31,6 +31,7 @@ public class Travel extends Auditable {
     private String title;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Region region;
 
     @Column(nullable = false)
