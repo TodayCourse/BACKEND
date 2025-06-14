@@ -29,8 +29,11 @@ public class TravelController {
     @PostMapping("/create")
     public ResponseEntity postTravel(@RequestBody @Valid TravelPostDto travelPostDto) {
         Travel travel = travelMapper.postDtoToTravel(travelPostDto);
-        TravelCategory category = travelCategoryService.getCategory(travelPostDto.getCategoryId());
-        travel.setTravelCategory(category);
+
+        if (travelPostDto.getCategoryId() != null) {
+            TravelCategory category = travelCategoryService.getCategory(travelPostDto.getCategoryId());
+            travel.setTravelCategory(category);
+        }
 
         Travel savedTravel = travelService.createTravel(travel);
         return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(savedTravel), HttpStatus.CREATED);
@@ -54,9 +57,15 @@ public class TravelController {
     @PatchMapping("/{travelId}")
     public ResponseEntity patchTravel(@PathVariable Long travelId,
                                       @RequestBody @Valid TravelPatchDto travelPatchDto) {
-        travelService.updateTravel(travelId, travelMapper.patchDtoToTravel(travelPatchDto));
-        Travel travel = travelService.getTravel(travelId);
-        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(travel), HttpStatus.OK);
+        Travel travel = travelMapper.patchDtoToTravel(travelPatchDto);
+
+        if (travelPatchDto.getCategoryId() != null) {
+            TravelCategory category = travelCategoryService.getCategory(travelPatchDto.getCategoryId());
+            travel.setTravelCategory(category);
+        }
+
+        Travel savedTravel = travelService.updateTravel(travelId, travel);
+        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(savedTravel), HttpStatus.OK);
     }
 
     // 여행 정보 삭제

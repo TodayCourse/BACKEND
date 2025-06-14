@@ -36,12 +36,12 @@ public class TravelService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TRAVEL_NOT_FOUND));
     }
 
-    public void updateTravel(Long travelId, Travel travel) {
+    public Travel updateTravel(Long travelId, Travel travel) {
         Travel findTravel = verifiedTravel(travelId);
 
         if (travel.getTitle() != null) findTravel.setTitle(travel.getTitle());
         if (travel.getRegion() != null) findTravel.setRegion(travel.getRegion());
-        if (travel.getTravelCategory().getCategoryName() != null) findTravel.setTravelCategory(travel.getTravelCategory());
+        if (travel.getTravelCategory() != null) findTravel.setTravelCategory(travel.getTravelCategory());
         if (travel.getTravelStartDt() != null) findTravel.setTravelStartDt(travel.getTravelStartDt());
         if (travel.getTravelEndDt() != null) findTravel.setTravelEndDt(travel.getTravelEndDt());
         if (travel.getCostType() != null) findTravel.setCostType(travel.getCostType());
@@ -49,6 +49,8 @@ public class TravelService {
         if (travel.getVehicle() != null) findTravel.setVehicle(travel.getVehicle());
         if (travel.getContents() != null) findTravel.setContents(travel.getContents());
         if (travel.getRegUserId() != null) findTravel.setMdfcUserId(travel.getRegUserId());
+
+        return findTravel;
     }
 
     public void deleteTravel(Long travelId) {
