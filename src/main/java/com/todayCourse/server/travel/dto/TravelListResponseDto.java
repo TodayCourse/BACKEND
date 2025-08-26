@@ -19,7 +19,7 @@ public class TravelListResponseDto {
 
     private Region region;
 
-    private String category;
+    private String categoryName;
 
     private String travelStartDt;
 

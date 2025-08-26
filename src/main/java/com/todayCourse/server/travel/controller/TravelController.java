@@ -1,6 +1,7 @@
 package com.todayCourse.server.travel.controller;
 
-import com.todayCourse.server.travel.dto.TravelListResponseDto;
+import com.todayCourse.server.category.entity.TravelCategory;
+import com.todayCourse.server.category.service.TravelCategoryService;
 import com.todayCourse.server.travel.dto.TravelPatchDto;
 import com.todayCourse.server.travel.dto.TravelPostDto;
 import com.todayCourse.server.travel.entity.Travel;
@@ -18,16 +19,24 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/travel")
+@RequestMapping("/api/travel")
 public class TravelController {
     private final TravelService travelService;
     private final TravelMapper travelMapper;
+    private final TravelCategoryService travelCategoryService;
 
     // 여행 정보 등록
     @PostMapping("/create")
     public ResponseEntity postTravel(@RequestBody @Valid TravelPostDto travelPostDto) {
-        Travel travel = travelService.createTravel(travelMapper.postDtoToTravel(travelPostDto));
-        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(travel), HttpStatus.CREATED);
+        Travel travel = travelMapper.postDtoToTravel(travelPostDto);
+
+        if (travelPostDto.getCategoryId() != null) {
+            TravelCategory category = travelCategoryService.getCategory(travelPostDto.getCategoryId());
+            travel.setTravelCategory(category);
+        }
+
+        Travel savedTravel = travelService.createTravel(travel);
+        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(savedTravel), HttpStatus.CREATED);
     }
 
     // 여행 정보 목록조회
@@ -36,6 +45,7 @@ public class TravelController {
         List<Travel> travelList = travelService.getTravelList();
         return new ResponseEntity<>(travelMapper.travelToTravelListResponseDto(travelList), HttpStatus.OK);
     }
+
     // 여행 정보 상세조회
     @GetMapping("/{travelId}")
     public ResponseEntity getTravel(@PathVariable Long travelId) {
@@ -47,9 +57,15 @@ public class TravelController {
     @PatchMapping("/{travelId}")
     public ResponseEntity patchTravel(@PathVariable Long travelId,
                                       @RequestBody @Valid TravelPatchDto travelPatchDto) {
-        travelService.updateTravel(travelId, travelMapper.patchDtoToTravel(travelPatchDto));
-        Travel travel = travelService.getTravel(travelId);
-        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(travel), HttpStatus.OK);
+        Travel travel = travelMapper.patchDtoToTravel(travelPatchDto);
+
+        if (travelPatchDto.getCategoryId() != null) {
+            TravelCategory category = travelCategoryService.getCategory(travelPatchDto.getCategoryId());
+            travel.setTravelCategory(category);
+        }
+
+        Travel savedTravel = travelService.updateTravel(travelId, travel);
+        return new ResponseEntity<>(travelMapper.travelToTravelResponseDto(savedTravel), HttpStatus.OK);
     }
 
     // 여행 정보 삭제

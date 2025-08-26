@@ -17,7 +17,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/travel")
+@RequestMapping("/api/travel")
 public class CourseController {
     private final CourseService courseService;
     private final CourseMapper courseMapper;
