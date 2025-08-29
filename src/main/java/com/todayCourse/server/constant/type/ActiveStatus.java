@@ -1,4 +1,4 @@
-package com.todayCourse.server.constant;
+package com.todayCourse.server.constant.type;
 
 import com.todayCourse.server.exception.BusinessLogicException;
 import com.todayCourse.server.exception.ExceptionCode;
@@ -6,20 +6,19 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-public enum Season {
-    SPRING("봄"),
-    SUMMER("여름"),
-    AUTUMN("가을"),
-    WINTER("겨울");
+public enum ActiveStatus {
+    ACTIVE("활성계정"),
+    INACTIVE("비활성계정"),
+    DORMANT("휴먼계정");
 
     @Getter
-    private String season;
+    private String activeStatus;
 
-    Season(String season) {
-        this.season = season;
+    ActiveStatus(String activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
-    public static Season verifiedSeason(String data) {
+    public static ActiveStatus verifiedActiveStatus(String data) {
         return Arrays.stream(values())
                 .filter(status -> data.trim().toUpperCase().equals(status.toString()))
                 .findFirst()

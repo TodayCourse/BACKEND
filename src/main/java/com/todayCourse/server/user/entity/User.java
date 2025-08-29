@@ -1,8 +1,8 @@
 package com.todayCourse.server.user.entity;
 
 import com.todayCourse.server.audit.Auditable;
-import com.todayCourse.server.constant.ActiveStatus;
-import com.todayCourse.server.constant.LoginType;
+import com.todayCourse.server.constant.type.ActiveStatus;
+import com.todayCourse.server.constant.type.LoginType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -2,10 +2,10 @@ package com.todayCourse.server.travel.entity;
 
 import com.todayCourse.server.audit.Auditable;
 import com.todayCourse.server.category.entity.TravelCategory;
-import com.todayCourse.server.constant.CostType;
-import com.todayCourse.server.constant.Region;
-import com.todayCourse.server.constant.Season;
-import com.todayCourse.server.constant.Vehicle;
+import com.todayCourse.server.constant.type.CostType;
+import com.todayCourse.server.constant.type.Region;
+import com.todayCourse.server.constant.type.Season;
+import com.todayCourse.server.constant.type.Vehicle;
 import com.todayCourse.server.course.entity.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
