@@ -1,4 +1,4 @@
-package com.todayCourse.server.constant;
+package com.todayCourse.server.constant.type;
 
 import com.todayCourse.server.exception.BusinessLogicException;
 import com.todayCourse.server.exception.ExceptionCode;

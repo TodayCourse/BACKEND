@@ -1,4 +1,4 @@
-package com.todayCourse.server.constant;
+package com.todayCourse.server.constant.type;
 
 import com.todayCourse.server.exception.BusinessLogicException;
 import com.todayCourse.server.exception.ExceptionCode;
@@ -6,16 +6,20 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-public enum LoginType {
-    BASIC("일반 로그인"),
-    SOCIAL("소셜 로그인");
+public enum Season {
+    SPRING("봄"),
+    SUMMER("여름"),
+    AUTUMN("가을"),
+    WINTER("겨울");
 
     @Getter
-    private String loginType;
+    private String season;
 
-    LoginType(String loginType) { this.loginType = loginType; }
+    Season(String season) {
+        this.season = season;
+    }
 
-    public static LoginType verifiedLoginType(String data) {
+    public static Season verifiedSeason(String data) {
         return Arrays.stream(values())
                 .filter(status -> data.trim().toUpperCase().equals(status.toString()))
                 .findFirst()

@@ -1,9 +1,9 @@
 package com.todayCourse.server.travel.dto;
 
-import com.todayCourse.server.constant.CostType;
-import com.todayCourse.server.constant.Region;
-import com.todayCourse.server.constant.Season;
-import com.todayCourse.server.constant.Vehicle;
+import com.todayCourse.server.constant.type.CostType;
+import com.todayCourse.server.constant.type.Region;
+import com.todayCourse.server.constant.type.Season;
+import com.todayCourse.server.constant.type.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

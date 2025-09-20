@@ -1,4 +1,4 @@
-package com.todayCourse.server.constant;
+package com.todayCourse.server.constant.type;
 
 import com.todayCourse.server.exception.BusinessLogicException;
 import com.todayCourse.server.exception.ExceptionCode;
@@ -6,22 +6,23 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-public enum ActiveStatus {
-    ACTIVE("활성계정"),
-    INACTIVE("비활성계정"),
-    DORMANT("휴먼계정");
+public enum Vehicle {
+    PUBLIC_TRANSPORT("대중교통"),
+    CAR("자동차"),
+    TAXI("택시"),
+    WALK("도보"),
+    BICYCLE("자전거");
 
     @Getter
-    private String activeStatus;
+    private String vehicle;
 
-    ActiveStatus(String activeStatus) {
-        this.activeStatus = activeStatus;
-    }
+    Vehicle(String vehicle) { this.vehicle = vehicle; }
 
-    public static ActiveStatus verifiedActiveStatus(String data) {
+    public static Vehicle verifiedVehicle(String data) {
         return Arrays.stream(values())
                 .filter(status -> data.trim().toUpperCase().equals(status.toString()))
                 .findFirst()
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INVALID_VALUES));
     }
+
 }

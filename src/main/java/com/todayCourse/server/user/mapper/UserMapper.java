@@ -1,10 +1,16 @@
 package com.todayCourse.server.user.mapper;
 
+import com.todayCourse.server.constant.type.Role;
+import com.todayCourse.server.user.dto.MyPageResponseDto;
 import com.todayCourse.server.user.dto.UserPatchDto;
 import com.todayCourse.server.user.dto.UserPostDto;
 import com.todayCourse.server.user.dto.UserResponseDto;
 import com.todayCourse.server.user.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -20,26 +26,29 @@ public interface UserMapper {
         user.setUserId(userPatchDto.getUserId());
         user.setEmail(userPatchDto.getEmail());
         user.setPassword(userPatchDto.getPassword());
-        user.setUserName(userPatchDto.getUserName());
+        user.setLoginId(userPatchDto.getLoginId());
         user.setNickname(userPatchDto.getNickname());
-        user.setPhone(userPatchDto.getPhone());
 
         return user;
     }
 
-    default UserResponseDto userToUserResponseDto(User user) {
-        if (user == null) {
-            return null;
+    UserResponseDto userToUserResponseDto(User user);
+
+    @Mapping(target = "password", qualifiedByName = "maskPassword")
+    @Mapping(target = "roles", expression = "java(mapSingleRole(user.getRoles()))")
+    MyPageResponseDto userToMyPageResponseDto(User user);
+
+    @Named("maskPassword")
+    default String maskPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return "";
         }
+        return "*".repeat(password.length());
+    }
 
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setUserId(user.getUserId());
-        userResponseDto.setEmail(user.getEmail());
-        userResponseDto.setPassword(user.getPassword());
-        userResponseDto.setUserName(user.getUserName());
-        userResponseDto.setNickname(user.getNickname());
-        userResponseDto.setPhone(user.getPhone());
-
-        return userResponseDto;
+    default String mapSingleRole(Set<Role> roles) {
+        if (roles == null || roles.isEmpty()) return null;
+        // 첫 번째 role 하나만 반환
+        return roles.iterator().next().getRoleName();
     }
 }
