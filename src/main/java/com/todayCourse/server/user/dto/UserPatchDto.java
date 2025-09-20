@@ -13,7 +13,6 @@ public class UserPatchDto {
     private Long userId;
     private String email;
     private String password;
-    private String userName;
+    private String loginId;
     private String nickname;
-    private String phone;
 }

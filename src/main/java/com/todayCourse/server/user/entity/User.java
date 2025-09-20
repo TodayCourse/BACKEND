@@ -3,15 +3,16 @@ package com.todayCourse.server.user.entity;
 import com.todayCourse.server.audit.Auditable;
 import com.todayCourse.server.constant.type.ActiveStatus;
 import com.todayCourse.server.constant.type.LoginType;
+import com.todayCourse.server.constant.type.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
@@ -28,28 +29,22 @@ public class User extends Auditable {
     private String password;
 
     @Column
-    private String userName;
+    private String loginId;
 
     @Column
     private String nickname;
 
     @Column
-    private String phone;
-
-    @Column
     @Enumerated(EnumType.STRING)
     private LoginType loginType;
 
-    @Column
-    private String role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Set<Role> roles;
 
     @Column
     @Enumerated(EnumType.STRING)
     private ActiveStatus activeStatus;
-
-    @Column
-    private String regUserId;
-
-    @Column
-    private String mdfcUserId;
 }
