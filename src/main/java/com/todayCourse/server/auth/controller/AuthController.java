@@ -44,10 +44,10 @@ public class AuthController {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", tokenResponseDto.getRefreshToken())
                 .httpOnly(true)
-                .secure(true) // 운영에서는 true 로 수정 필요
+                .secure(false) // 운영에서는 true 로 수정 필요
                 .path("/")
                 .maxAge(24 * 60 * 60) // 1일
-                .sameSite("None")
+                .sameSite("Lax")
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
@@ -69,10 +69,10 @@ public class AuthController {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", tokenResponseDto.getRefreshToken())
                 .httpOnly(true)
-                .secure(true) // 운영에서는 true 로 수정 필요
+                .secure(false) // 운영에서는 true 로 수정 필요
                 .path("/")
                 .maxAge(24 * 60 * 60) // 1일
-                .sameSite("None")
+                .sameSite("Lax")
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
